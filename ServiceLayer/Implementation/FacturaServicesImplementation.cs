@@ -53,7 +53,8 @@ namespace ServiceLayer.Implementation
 
             foreach (Utilizator utilizator in utilizatorServicesImplementation.GetAllUsers())
             {
-                List<Abonament> abonaments = new List<Abonament>();
+                Console.WriteLine(utilizator.Emali);
+                List<AbonamentUser> abonaments = new List<AbonamentUser>();
 
                 //calculam bonusurile pentru utilizator
                 List<Bonusuri> bonusuri = new List<Bonusuri>();
@@ -63,28 +64,25 @@ namespace ServiceLayer.Implementation
                     Bonusuri bonus = bonusuriServiceImplementation.GetBonusById(int.Parse(stringId));
                     if (bonus != null)
                     {
+                        Console.WriteLine(" " + bonus.Name);
                         bonusuri.Add(bonus);
                     }
                 }
 
-                Console.WriteLine("Utilizatorul: " + utilizator + " are abonamentele: ");
-                foreach (Abonament abonament in abonamentServiceImplementation.GetAbonamentsByUserId(utilizator.Id))
-                {
-                    Console.Write(abonament.Name + " ");
-                }
-
-
                 int pretAbonamente = 0;
                 double totalTVA = 0;
                 double procentDepasireValoriAbonamentTotal = 0;
-                foreach (Abonament abonament in abonamentServiceImplementation.GetAbonamentsByUserId(utilizator.Id))
+                Console.WriteLine(utilizator.Id);
+
+                foreach (AbonamentUser abonamentUser in abonamentServiceImplementation.GetAbonamentsByUserId(utilizator.Id))
                 {
-                    if (abonament != null)
+                    if (abonamentUser != null)
                     {
-                        abonaments.Add(abonament);
-                        pretAbonamente += abonament.Pret;
-                        totalTVA += buisniessServiceImplementation.GetBuisniessById(abonament.BuissniesID).TVA;
-                        procentDepasireValoriAbonamentTotal += buisniessServiceImplementation.GetBuisniessById(abonament.BuissniesID).ProcentDepasireValoriAbonament;
+                        Console.WriteLine(abonamentUser.Name);
+                        abonaments.Add(abonamentUser);
+                        pretAbonamente += abonamentUser.Pret;
+                        totalTVA += buisniessServiceImplementation.GetBuisniessById(abonamentUser.BuissniesID).TVA;
+                        procentDepasireValoriAbonamentTotal += buisniessServiceImplementation.GetBuisniessById(abonamentUser.BuissniesID).ProcentDepasireValoriAbonament;
                     }
 
                 }
@@ -109,48 +107,30 @@ namespace ServiceLayer.Implementation
                     minutesSMSInternetConsumatePrinCentralaTelefonica.TraficDeDateNationala += centralaTelefonica.TraficDeDateNationala;
                     minutesSMSInternetConsumatePrinCentralaTelefonica.TraficDeDateInternationala += centralaTelefonica.TraficDeDateInternationala;
                 }
-
+                
                 double tVA = totalTVA / abonaments.Count;
                 double procentDepasireValoriAbonament = procentDepasireValoriAbonamentTotal / abonaments.Count;
-
-                Factura factura = new Factura
+                if (abonaments.Count == 0)
                 {
+                    tVA = totalTVA;
+                    procentDepasireValoriAbonament = procentDepasireValoriAbonamentTotal;
+                }
+
+                facturi.Add(new Factura
+                {
+
                     ClientEmail = utilizator.Emali,
                     TVA = tVA,
                     PretTotal = this.PretTotal(tVA, pretAbonamente, procentDepasireValoriAbonament, minutesSMSInternetTotalePrimiteAbonament, minutesSMSInternetConsumatePrinCentralaTelefonica),
                     Achitat = false,
-                    MomentulInceperiConvorbireNationala = DateTime.Now,
-                    DurataConvorbireNationala = minutesSMSInternetConsumatePrinCentralaTelefonica.DurataConvorbireNationala,
-                    PretConvorbireNationala = 12,
-                    MomentulInceperiConvorbireInternationala = DateTime.Now,
-                    DurataConvorbireInternationala = minutesSMSInternetConsumatePrinCentralaTelefonica.DurataConvorbireInternationala,
-                    PretConvorbireInternationala = 12,
-                    MomentulInceperiConvorbireRetea = DateTime.Now,
-                    DurataConvorbireRetea = minutesSMSInternetConsumatePrinCentralaTelefonica.DurataConvorbireRetea,
-                    PretConvorbireRetea = 12,
-                    SMSNationala = minutesSMSInternetConsumatePrinCentralaTelefonica.SMSNationala,
-                    PretSMSNationala = 12,
-                    SMSInternationala = minutesSMSInternetConsumatePrinCentralaTelefonica.SMSInternationala,
-                    PretSMSInternationala = 12,
-                    SMSRetea = minutesSMSInternetConsumatePrinCentralaTelefonica.SMSRetea,
-                    PretSMSRetea = 12,
-                    TraficDeDateNationala = minutesSMSInternetConsumatePrinCentralaTelefonica.TraficDeDateNationala,
-                    PretTraficDeDateNationala = 12,
-                    TraficDeDateInternationala = minutesSMSInternetConsumatePrinCentralaTelefonica.TraficDeDateInternationala,
-                    PretTraficDeDateInternationala = 12,
-                    TraficDeDateRetea = minutesSMSInternetConsumatePrinCentralaTelefonica.TraficDeDateRetea,
-                    PretTraficDeDateRetea = 12,
-
-                };
-
-
-                facturi.Add(factura);
+                });
+               
             }
 
-            foreach (var facturaa in facturi)
+         /*   foreach(Factura factura in facturi)
             {
-                Console.WriteLine("FACTURA " + facturaa.ClientEmail);
-            }
+                Console.WriteLine(factura.PretTotal);
+            }*/
 
             return facturi;
         }

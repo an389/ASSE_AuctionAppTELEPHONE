@@ -50,7 +50,8 @@ namespace ServiceLayer.Implementation
                     {
                         res += item;
                     }
-                    this.logger.Warn("Attempted to add an invalid bonusuri. " +  res);
+
+                    this.logger.Warn("Attempted to add an invalid bonusuri. " + res);
                     return false;
                 }
             }

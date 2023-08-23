@@ -42,7 +42,7 @@ namespace DataMapper.SqlServerDAO
             {
                 try
                 {
-                    Console.WriteLine("+++++++++++++++++++++++++");
+
                     abonament = context.Abonaments.Where((abonament) => abonament.Name == abonamentName).FirstOrDefault();
                     utilizator = context.Utilizatori.Where((utilizator) => utilizator.Emali == userEmail).FirstOrDefault();
                     abonamentUser = new AbonamentUser(utilizator, abonament);
@@ -91,11 +91,7 @@ namespace DataMapper.SqlServerDAO
             {
                 try
                 {
-                    abonamentUser = context.AbonamentUser.Where((utilizator) => utilizator.Id == id).ToList();
-                    foreach (var user in abonamentUser)
-                    {
-                        Console.WriteLine("222222222222222222222222222 " +user.Name);
-                    }
+                    abonamentUser = context.AbonamentUser.Where((abonamentUser) => abonamentUser.Utilizator.Id == id).ToList();
                 }
                 catch (Exception ex)
                 {

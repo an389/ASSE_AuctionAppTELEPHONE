@@ -53,15 +53,7 @@ namespace AuctionConsoleApp
 
             //utilizatorul vrea sa faca reportare de minute/ sms in alt tip de minute/sms (nationale -> internationale)
 
-            /*Utilizator nullUser = null;
-            Utilizator emptyUser = new Utilizator();
-            this.utilizatorServicesImplementation.AddUtilizator(nullUser);
-            this.utilizatorServicesImplementation.AddUtilizator(emptyUser);
 
-            foreach (Utilizator user in this.GetUtilizatori())
-            {
-                this.utilizatorServicesImplementation.AddUtilizator(user);
-            }*/
         }
 
         public List<Utilizator> GetUtilizatori()
