@@ -100,7 +100,7 @@ namespace ServiceLayer.Implementation
             }
         }
 
-        public MinutesSMSInternet CalculateAllNumberOfMinutesSMSInternet(List<Abonament> abonaments, List<Bonusuri> bonusuri)
+        public MinutesSMSInternet CalculateAllNumberOfMinutesSMSInternet(List<AbonamentUser> abonaments, List<Bonusuri> bonusuri)
         {
             MinutesSMSInternet minutesSMSInternet = new MinutesSMSInternet(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -118,9 +118,9 @@ namespace ServiceLayer.Implementation
                     minutesSMSInternet.TraficDeDateNationala += abonament.TraficDeDateNationale;
                     minutesSMSInternet.TraficDeDateInternationala += abonament.TraficDeDateInternationale;
                 }
-                
+
             }
-            Console.WriteLine("NR MINUTE RETEA: " + minutesSMSInternet.DurataConvorbireRetea);
+
             foreach (Bonusuri bonus in bonusuri)
             {
                 minutesSMSInternet.DurataConvorbireRetea += bonus.BonusConvorbireRetea;
@@ -133,8 +133,6 @@ namespace ServiceLayer.Implementation
                 minutesSMSInternet.TraficDeDateNationala += bonus.BonusTraficDeDateNationala;
                 minutesSMSInternet.TraficDeDateInternationala += bonus.BonusTraficDeDateInternationala;
             }
-
-         Console.WriteLine("NR MINUTE CU BONUS: " + minutesSMSInternet.DurataConvorbireRetea);
 
             return minutesSMSInternet;
         }

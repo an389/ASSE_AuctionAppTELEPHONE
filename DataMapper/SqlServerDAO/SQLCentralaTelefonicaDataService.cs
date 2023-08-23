@@ -41,8 +41,14 @@ namespace DataMapper.SqlServerDAO
                 centralaTelefonica = context.CentralaTelefonica.Where((centralaTelefonica) => centralaTelefonica.ClientEmail == email && 
                 (centralaTelefonica.MomentulInceperiConvorbireRetea.Month == month ||
                 centralaTelefonica.MomentulInceperiConvorbireInternationala.Month == month ||
-                centralaTelefonica.MomentulInceperiConvorbireNationala.Month == month)).ToList();
+                centralaTelefonica.SMSReteaDate.Month == month ||
+                centralaTelefonica.SMSInternationalaDate.Month == month ||
+                centralaTelefonica.SMSNationalaDate.Month == month ||
+                centralaTelefonica.TraficDeDateReteaDate.Month == month ||
+                centralaTelefonica.TraficDeDateNationalaDate.Month == month ||
+                centralaTelefonica.TraficDeDateInternationalaDate.Month == month)).ToList();
             }
+
             return centralaTelefonica;
         }
     }

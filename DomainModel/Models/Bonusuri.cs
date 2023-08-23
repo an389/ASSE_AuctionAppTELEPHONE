@@ -98,7 +98,7 @@ namespace DomainModel.Models
 
         public static ValidationResult isValidEndtDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Now.Day > dateTime.Day + 2 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
+            return DateTime.Now.Day < dateTime.Day + 2 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
         }
     }
 }
