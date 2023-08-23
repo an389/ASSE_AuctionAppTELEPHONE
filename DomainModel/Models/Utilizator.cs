@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -11,8 +12,8 @@ namespace DomainModel.Models
 {
     public class Utilizator
     {
-        
 
+        [ExcludeFromCodeCoverage]
         public virtual int Id { get; private set; }
 
         [Required(ErrorMessage = "[FirstName] cannot be null.")]
@@ -35,7 +36,7 @@ namespace DomainModel.Models
         [CustomValidation(typeof(Utilizator), "IsValidPassword", ErrorMessage = "[Password] must contain at least one number, one uppercase letter, one lowercase letter and one symbol.")]
         public virtual string Password { get; set; }
 
-        [Required(ErrorMessage = "[CNP] is not a valid cnp number.")]
+        [Required(ErrorMessage = "[CNP] cannot be null.")]
         [CustomValidation(typeof(Utilizator), "IsValidCNP", ErrorMessage = "[CNP] must be 13 nubers. Start with 1,2,5,6(sex) and the next 6 nr represent date of birth  OR USER UNDER AGE 18")]
         public virtual long CNP { get; set; }
         [Required(ErrorMessage = "[BonusuriId] cannot be null.")]
@@ -56,6 +57,11 @@ namespace DomainModel.Models
       
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Utilizator"/> class.
+        /// </summary>
+        ///
+        [ExcludeFromCodeCoverage]
         public Utilizator()
         {
         }
@@ -76,29 +82,50 @@ namespace DomainModel.Models
             return (isValid == true) ? ValidationResult.Success : new ValidationResult(null);
         }
 
-        public static ValidationResult IsValidCNP(long CNP, ValidationContext context)
+        public static ValidationResult IsValidCNP(long cNP, ValidationContext context)
         {
 
             long[] cnp = new long[13];
-            if (CNP < 0) return new ValidationResult("Negative CNP!!");
+            if (cNP < 0)
+            {
+                return new ValidationResult("[CNP] cannot be negative");
+            }
+
             int i = 12;
-            while (CNP > 0)
+            while (cNP > 0)
             {
 
-                cnp[i] = CNP % 10;
-                CNP /= 10;
+                cnp[i] = cNP % 10;
+                cNP /= 10;
                 i--;
             }
 
-            if (cnp[0] != 1 && cnp[0] != 2 && cnp[0] != 5 && cnp[0] != 6) return new ValidationResult("Incorect first number from CNP");
+            if (cnp[0] is not 1 and not 2 and not 5 and not 6)
+            {
+                return new ValidationResult("Incorect first number from CNP");
+            }
 
-            if (cnp[3] is not 0 or 1) return new ValidationResult("Incorect mounth!");
+            if (cnp[3] > 1)
+            {
+                return new ValidationResult("[CNP] Incorect month!");
+            }
 
-            if (cnp[5] > 3) return new ValidationResult("Incorect day!!");
 
-            if (cnp[5] > 3 && cnp[6] > 2) return new ValidationResult("Incorect day!!");
+            if (cnp[5] > 3)
+            {
+                return new ValidationResult("[CNP] Incorect day!!");
+            }
 
-            if (cnp[0] > 2 && (cnp[1] * 10 + cnp[2]) > 18) return new ValidationResult("Under AGE!!!");
+            if (cnp[5] > 2 && cnp[6] > 2)
+            {
+                return new ValidationResult("[CNP] Incorect day!!(day cannot be grather than 32");
+            }
+
+            if (cnp[0] > 2 && ((cnp[1] * 10) + cnp[2]) > 18)
+            {
+                return new ValidationResult("Under AGE!!!");
+            }
+
             return ValidationResult.Success;
         }
 
