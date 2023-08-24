@@ -11,7 +11,7 @@ namespace ServiceLayer.Interfaces
     {
         bool AddAbonament(Abonament abonament);
         Abonament GetAbonamentById(int id);
-        MinutesSMSInternet CalculateAllNumberOfMinutesSMSInternet(List<Abonament> abonaments, List<Bonusuri> bonusuri);
+        MinutesSMSInternet CalculateAllNumberOfMinutesSMSInternet(List<AbonamentUser> abonaments, List<Bonusuri> bonusuri);
         bool AddAbonamentForUtilizator(string userEmail, string abonamentName);
         List<AbonamentUser> GetAbonamentsByUserId(int id);
     }

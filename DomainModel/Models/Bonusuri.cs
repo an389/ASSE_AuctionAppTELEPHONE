@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ namespace DomainModel.Models
 {
     public class Bonusuri
     {
-        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
         [Required(ErrorMessage = "[CreationDate] cannot be null.")]
         [CustomValidation(typeof(Bonusuri), "isValidStartDate", ErrorMessage = "StartDate wrong ")]
@@ -90,21 +88,17 @@ namespace DomainModel.Models
             }
            
         }
-        [ExcludeFromCodeCoverage]
         public Bonusuri()
         {
         }
-
         public static ValidationResult isValidStartDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Today.Day + 1 > dateTime.Day ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
+            return DateTime.Today.Day > dateTime.Day + 1 ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
         }
 
         public static ValidationResult isValidEndtDate(DateTime dateTime, ValidationContext context)
         {
-
-            return DateTime.Compare(DateTime.Today, dateTime) >= 0 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
-
+            return DateTime.Now.Day < dateTime.Day + 2 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
         }
     }
 }
