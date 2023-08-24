@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,12 @@ namespace DomainModel.Models
 {
     public class Factura
     {
-      
 
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
+        [Required(ErrorMessage = "[ClientEmail] cannot be null.")]
+        [EmailAddress(ErrorMessage = "[ClientEmail] is not a valid email address.")]
+        [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = "[ClientEmail] must have between 5 and 50 digits.")]
         public string ClientEmail { get; set; }
         [Required(ErrorMessage = "[TVA] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[TVA] cannot be negative.")]
@@ -46,6 +50,7 @@ namespace DomainModel.Models
         [Required(ErrorMessage = "[PretConvorbireRetea] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[PretConvorbireRetea] cannot be negative.")]
         public int PretConvorbireRetea { get; set; }
+
 
         //SMS
         [Required(ErrorMessage = "[SMSNationala] cannot be null.")]
