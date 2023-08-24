@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace DomainModel.Models
 {
     public class Abonament
     {
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
         [Required(ErrorMessage = "[Name] cannot be null.")]
         [StringLength(maximumLength: 250, MinimumLength = 4, ErrorMessage = "[Name] must be between 1 and 250 characters.")]
@@ -22,7 +24,7 @@ namespace DomainModel.Models
         [Required(ErrorMessage = "[CreationDate] cannot be null.")]
         [CustomValidation(typeof(Abonament), "isValidEndtDate", ErrorMessage = "EndDate wrong ")]
         public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "[Activ] cannot be null.")]
+        [ExcludeFromCodeCoverage]
         public bool Activ { get; set; }
         [Required(ErrorMessage = "[NumarMinuteNationale] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[NumarMinuteNationale] cannot be negative.")]
@@ -52,6 +54,7 @@ namespace DomainModel.Models
         [Range(0.0, double.MaxValue, ErrorMessage = "[TraficDeDateRetea] cannot be negative.")]
         public int TraficDeDateRetea { get; set; }
         [Required(ErrorMessage = "[BuissniesID] cannot be null.")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "[BuissniesID] cannot be negative.")]
         public int BuissniesID { get; set; }
         public Abonament(string name, int pret, DateTime startDate, DateTime endDate, int numarMinuteNationale, int numarMinuteInternationale, int numarMinuteRetea, int sMSNationale, int sMSInternationale, int sMSRetea, int traficDeDateNationale, int traficDeDateInternationale, int traficDeDateRetea, int buissniesID)
         {
@@ -71,18 +74,19 @@ namespace DomainModel.Models
             Activ = true;
             BuissniesID = buissniesID;
         }
+        [ExcludeFromCodeCoverage]
         public Abonament()
         {
         }
     
         public static ValidationResult isValidStartDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Today.Day > dateTime.Day + 1 ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
+            return DateTime.Today.Day + 1 > dateTime.Day ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
         }
 
         public static ValidationResult isValidEndtDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Now.Day < dateTime.Day + 2 ? new ValidationResult("Start date must be later than tomorrow") : ValidationResult.Success;
+            return DateTime.Compare(DateTime.Today, dateTime) >= 0 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
         }
     }
 }

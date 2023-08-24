@@ -90,10 +90,10 @@ namespace AuctionConsoleApp
         {
             return new List<Abonament>
             {
-                new Abonament("Abonament0", 100, DateTime.Today, DateTime.Today.AddDays(360), 100,100,100,100,100,100,100,100,100,this.buisniessServiceImplementation.GetBuisniess().Id),
-                new Abonament("Abonament1", 110, DateTime.Today, DateTime.Today.AddDays(360), 200,200,200,200,200,200,200,200,200,this.buisniessServiceImplementation.GetBuisniess().Id),
-                new Abonament("Abonament2", 120, DateTime.Today, DateTime.Today.AddDays(360), 300,300,300,300,300,300,300,300,300,this.buisniessServiceImplementation.GetBuisniess().Id),
-                new Abonament("Abonament3", 130, DateTime.Today, DateTime.Today.AddDays(360), 400,400,400,400,400,400,400,400,400,this.buisniessServiceImplementation.GetBuisniess().Id),
+                new Abonament("Abonament0", 100, DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), 100,100,100,100,100,100,100,100,100,this.buisniessServiceImplementation.GetBuisniess().Id),
+                new Abonament("Abonament1", 110, DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), 200,200,200,200,200,200,200,200,200,this.buisniessServiceImplementation.GetBuisniess().Id),
+                new Abonament("Abonament2", 120, DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), 300,300,300,300,300,300,300,300,300,this.buisniessServiceImplementation.GetBuisniess().Id),
+                new Abonament("Abonament3", 130, DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), 400,400,400,400,400,400,400,400,400,this.buisniessServiceImplementation.GetBuisniess().Id),
             };
         }
 
@@ -127,11 +127,11 @@ namespace AuctionConsoleApp
         {
             return new List<Bonusuri>
             {
-                new Bonusuri("Bonus1", DateTime.Today, DateTime.Today.AddDays(100), true, 100, 100, 100, 100, 100, 100, 100, 100, 100),
-                new Bonusuri("Bonus2", DateTime.Today, DateTime.Today.AddDays(100), true, 200, 200, 200, 200, 200, 200, 200, 200, 200),
-                new Bonusuri("Bonus3", DateTime.Today, DateTime.Today.AddDays(100), true, 300, 300, 300, 300, 300, 300, 300, 300, 300),
-                new Bonusuri("Bonus4", DateTime.Today, DateTime.Today.AddDays(100), true, 400, 400, 400, 400, 400, 400, 400, 400, 400),
-                new Bonusuri("Bonus5", DateTime.Today, DateTime.Today.AddDays(100), true, 500, 500, 500, 500, 500, 500, 500, 500, 500),
+                new Bonusuri("Bonus1", DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), true, 100, 100, 100, 100, 100, 100, 100, 100, 100),
+                new Bonusuri("Bonus2", DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), true, 200, 200, 200, 200, 200, 200, 200, 200, 200),
+                new Bonusuri("Bonus3", DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), true, 300, 300, 300, 300, 300, 300, 300, 300, 300),
+                new Bonusuri("Bonus4", DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), true, 400, 400, 400, 400, 400, 400, 400, 400, 400),
+                new Bonusuri("Bonus5", DateTime.Today.AddDays(1), DateTime.Today.AddDays(365), true, 500, 500, 500, 500, 500, 500, 500, 500, 500),
             };
         }
 

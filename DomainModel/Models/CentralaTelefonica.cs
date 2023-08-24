@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,12 @@ namespace DomainModel.Models
 {
     public class CentralaTelefonica
     {
-    
 
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
-        [Required(ErrorMessage = "[Name] cannot be null.")]
-        [StringLength(maximumLength: 250, MinimumLength = 4, ErrorMessage = "[Name] must be between 1 and 250 characters.")]
+        [Required(ErrorMessage = "[ClientEmail] cannot be null.")]
+        [EmailAddress(ErrorMessage = "[ClientEmail] is not a valid email address.")]
+        [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = "[ClientEmail] must have between 5 and 50 digits.")]
         public string ClientEmail { get; private set; }
         //CONVORBIRE
         [Required(ErrorMessage = "[MomentulInceperiConvorbireNationala] cannot be null.")]
@@ -72,7 +74,7 @@ namespace DomainModel.Models
         [Range(0.0, double.MaxValue, ErrorMessage = "[TraficDeDateRetea] cannot be negative.")]
         public int TraficDeDateRetea { get; set; }
 
-
+        [ExcludeFromCodeCoverage]
         public CentralaTelefonica()
         {
         }

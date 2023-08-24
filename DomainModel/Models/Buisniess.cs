@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace DomainModel.Models
 {
     public class Buisniess
     {
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
         [Required(ErrorMessage = "[TVA] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[TVA] cannot be negative.")]
@@ -29,18 +31,19 @@ namespace DomainModel.Models
         [Required(ErrorMessage = "[ProcentDepasireValoriAbonament] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[ProcentDepasireValoriAbonament] cannot be negative.")]
         public double ProcentDepasireValoriAbonament { get; set; }//daca depasesti se taxeaza cu urmatorul procent din pretul abonamentului ce e folosit in plus
-      
+        [Range(0.0, double.MaxValue, ErrorMessage = "[ProcentDepasireValoriAbonament] cannot be negative.")]
         public double ProcentRaportare { get; set; }
         public Buisniess(double TVA, double xPercentForClosingSooner, double procentRaportareMinute, double cursValutarEUR, double cursValutarUSD, double procentDepasireValoriAbonament, double procentRaportare)
         {
             this.TVA = TVA;
-            XPercentForClosingSooner = xPercentForClosingSooner;
-            ProcentRaportareMinute = procentRaportareMinute;
-            CursValutarEUR = cursValutarEUR;
-            CursValutarUSD = cursValutarUSD;
-            ProcentDepasireValoriAbonament = procentDepasireValoriAbonament;
-            ProcentRaportare = procentRaportare;
+            this.XPercentForClosingSooner = xPercentForClosingSooner;
+            this.ProcentRaportareMinute = procentRaportareMinute;
+            this.CursValutarEUR = cursValutarEUR;
+            this.CursValutarUSD = cursValutarUSD;
+            this.ProcentDepasireValoriAbonament = procentDepasireValoriAbonament;
+            this.ProcentRaportare = procentRaportare;
         }
+        [ExcludeFromCodeCoverage]
         public Buisniess()
         {
         }
