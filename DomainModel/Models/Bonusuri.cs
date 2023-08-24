@@ -93,12 +93,12 @@ namespace DomainModel.Models
         }
         public static ValidationResult isValidStartDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Today.Day > dateTime.Day + 1 ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
+            return DateTime.Compare(DateTime.Now, dateTime) >= 0 ? new ValidationResult("Start date must be later than today 1 AM") : ValidationResult.Success;
         }
 
         public static ValidationResult isValidEndtDate(DateTime dateTime, ValidationContext context)
         {
-            return DateTime.Now.Day < dateTime.Day + 2 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
+            return DateTime.Compare(DateTime.Now, dateTime) >= 0 ? new ValidationResult("End date must be later than tomorrow") : ValidationResult.Success;
         }
     }
 }

@@ -13,6 +13,8 @@ namespace DomainModel.Models
 
         public int Id { get; private set; }
         [Required(ErrorMessage = "[ClientEmail] cannot be null.")]
+        [EmailAddress(ErrorMessage = "[ClientEmail] is not a valid email address.")]
+        [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = "[ClientEmail] must have between 5 and 50 digits.")]
         public string ClientEmail { get; set; }
         [Required(ErrorMessage = "[TVA] cannot be null.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "[TVA] cannot be negative.")]
