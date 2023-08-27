@@ -13,6 +13,5 @@ namespace ServiceLayer.Interfaces
         bool AddFactura(Factura factura);
         public List<Factura> CalculareFacturiInFunctieDeLuna(int lastMonth, UtilizatorServicesImplementation utilizatorServicesImplementation, AbonamentServicesImplementation abonamentServiceImplementation, CentralaTelefonicaServicesImplementation centralaTelefonicaServicesImplementation, BuisniessServiceImplementation buisniessServiceImplementation, BonusuriServiceImplementation bonusuriServiceImplementation);
 
-
     }
 }

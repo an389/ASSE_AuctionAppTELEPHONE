@@ -5,12 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataMapper.SqlServerDAO
 {
+    [ExcludeFromCodeCoverage]
+
     public class SQLUtilizatorDataServices : IUtilizatorDataServices
     {
         private static readonly ILog Logger = LogManager.GetLogger(Environment.MachineName);
@@ -54,16 +57,6 @@ namespace DataMapper.SqlServerDAO
             }
         }
 
-        public string GeUtilizatortAbonamentsId(string email)
-        {
-            Utilizator utilizator = null;
-            using (AuctionContext context = new AuctionContext())
-            {
-                utilizator = context.Utilizatori.Where((utilizator) => utilizator.Emali == email).FirstOrDefault();
-            }
-            return "1";
-        }
-
         public List<Utilizator> GetAllUtilizatori()
         {
             List<Utilizator> utilizatori = new List<Utilizator>();
@@ -97,12 +90,8 @@ namespace DataMapper.SqlServerDAO
             throw new NotImplementedException();
         }
 
-        public bool UserNameAlreadyExists(string userName)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void CloseAbonamentForUser(string userEmail, string abonament)
+        public bool CloseAbonamentForUser(string userEmail, string abonament)
         {
             using (AuctionContext context = new AuctionContext())
             {
@@ -111,12 +100,15 @@ namespace DataMapper.SqlServerDAO
                 {
                     Utilizator user = context.Utilizatori.Where((user) => user.Emali == userEmail).FirstOrDefault();
                   //  user.AbonamentsId = user.AbonamentsId.Replace(abonament, newValue: string.Empty);
+                    AbonamentUser abonamentUser = context.AbonamentUser.Where((abonamentUser) => abonamentUser.Utilizator.Id == user.Id && abonamentUser.Id == int.Parse(abonament)).FirstOrDefault();
+                    abonamentUser.Activ = false;
                     context.SaveChanges();
-
+                    return true;
                 }
                 catch (Exception exception)
                 {
-                    Logger.Warn("Error while updating user: " + exception.Message.ToString() + " " + exception.InnerException.ToString());
+                    Logger.Warn("Error while updating user: " + exception.Message.ToString() + " " );
+                    return false;
                 }
             }
 

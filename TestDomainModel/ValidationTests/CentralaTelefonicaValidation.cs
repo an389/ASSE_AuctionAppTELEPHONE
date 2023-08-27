@@ -54,7 +54,7 @@ namespace TestDomainModel.ValidationTests
         [Test]
         public void InvalidUser_Email_Empty()
         {
-            CentralaTelefonica centrala = new CentralaTelefonica(null, DateTime.Today, 12, DateTime.Today, 10, DateTime.Today, 9, DateTime.Today, 2, DateTime.Today, 2, DateTime.Today, 3, DateTime.Today, 44, DateTime.Today, 12, DateTime.Today, 0);
+            CentralaTelefonica centrala = new CentralaTelefonica(string.Empty, DateTime.Today, 12, DateTime.Today, 10, DateTime.Today, 9, DateTime.Today, 2, DateTime.Today, 2, DateTime.Today, 3, DateTime.Today, 44, DateTime.Today, 12, DateTime.Today, 0);
 
             var context = new ValidationContext(centrala, serviceProvider: null, items: null);
             var results = new List<ValidationResult>();

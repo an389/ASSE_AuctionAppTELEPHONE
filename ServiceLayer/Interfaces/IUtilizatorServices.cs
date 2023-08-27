@@ -10,12 +10,15 @@ namespace ServiceLayer.Interfaces
     public interface IUtilizatorServices
     {
         bool AddUtilizator(Utilizator utizator);
+
         List<Utilizator> GetAllUsers();
+
         Utilizator GetUtilizatorById(int id);
-        Utilizator GetUtilizatorByEmailAndPassword(string email, string password);
-        bool UpdateUtilizator(Utilizator utilizator);
+
+
+        public bool UserCloseAbonamentSooner(string userEmail, string abonament);
+
         bool DeleteUtilizator(Utilizator utilizator);
-        public string GetUtilizatorAbonamentsId(string email);
 
     }
 }

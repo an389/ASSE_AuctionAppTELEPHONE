@@ -24,7 +24,7 @@ namespace ServiceLayer.Implementation
 
         public bool AddUtilizator(Utilizator utizator)
         {
-            if(utizator !=null)
+            if (utizator != null)
             {
                 var context = new ValidationContext(utizator, serviceProvider: null, items: null);
                 var results = new List<ValidationResult>();
@@ -37,19 +37,13 @@ namespace ServiceLayer.Implementation
                     }
                     else
                     {
-                        this.logger.Warn("Attempted to add an already existing utilizator." + utizator.Emali);
+                        this.logger.Warn("Attempted to add an already existing utilizator.");
                         return false;
                     }
                 }
                 else
                 {
-                    string message = null;
-                    foreach (ValidationResult result in results)
-                    {
-                        message += result;
-                    }
-
-                    this.logger.Warn("Attempted to add an invalid utilizator." + utizator.Emali + " " + message);
+                    this.logger.Warn("Attempted to add an invalid utilizator.");
                     return false;
                 }
             }
@@ -62,21 +56,29 @@ namespace ServiceLayer.Implementation
 
         public bool DeleteUtilizator(Utilizator utilizator)
         {
-            throw new NotImplementedException();
+            if (utilizator != null)
+            {
+                if (this.utilizatorDataService.GetUtilizatorById(utilizator.Id) != null)
+                {
+                    return this.utilizatorDataService.DeleteUtilizator(utilizator);
+                }
+                else
+                {
+                    this.logger.Warn("Attempted to delete a nonexisting user.");
+                    return false;
+                }
+            }
+            else
+            {
+                this.logger.Warn("Attempted to delete a null user.");
+                return false;
+            }
         }
-        public string GetUtilizatorAbonamentsId(string email)
-        {
-            return this.utilizatorDataService.GeUtilizatortAbonamentsId(email);
-        }
+
 
         public List<Utilizator> GetAllUsers()
         {
             return this.utilizatorDataService.GetAllUtilizatori();
-        }
-
-        public Utilizator GetUtilizatorByEmailAndPassword(string email, string password)
-        {
-            throw new NotImplementedException();
         }
 
         public Utilizator GetUtilizatorById(int id)
@@ -84,29 +86,24 @@ namespace ServiceLayer.Implementation
             return this.utilizatorDataService.GetUtilizatorById(id);
         }
 
-        public bool UpdateUtilizator(Utilizator utilizator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UserCloseAbonamentSooner(string userEmail, string abonament)
+        public bool UserCloseAbonamentSooner(string userEmail, string abonament)
         {
             if (userEmail != null && abonament != null)
             {
                 if (this.utilizatorDataService.EmailAlreadyExists(userEmail))
                 {
-                    this.utilizatorDataService.CloseAbonamentForUser(userEmail, abonament);
+                   return this.utilizatorDataService.CloseAbonamentForUser(userEmail, abonament);
                 }
                 else
                 {
                     this.logger.Warn("Cant find the user!");
-                    Console.WriteLine("We cant find the user!");
+                    return false;
                 }
             }
             else
             {
-                this.logger.Warn("Attempted to add a null utilizator.");
-                Console.WriteLine("Attempted to add a null utilizator or null abonamentId.");
+                this.logger.Warn("Attempted to update a null utilizator.");
+                return false;
             }
         }
     }

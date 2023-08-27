@@ -46,13 +46,7 @@ namespace ServiceLayer.Implementation
                 }
                 else
                 {
-                    string message = null;
-                    foreach (ValidationResult result in results)
-                    {
-                        Console.WriteLine(result.ErrorMessage);
-                        message += result;
-                    }
-                    this.logger.Warn("Attempted to add an invalid abonament." + abonament.Name + " " + message);
+                    this.logger.Warn("Attempted to add an invalid abonament.");
                     return false;
                 }
             }
@@ -65,9 +59,9 @@ namespace ServiceLayer.Implementation
 
         public bool AddAbonamentForUtilizator(string userEmail, string abonamentName)
         {
-            if (userEmail != null)
+            if (userEmail != null && userEmail != string.Empty)
             {
-                if (abonamentName != null)
+                if (abonamentName != null && abonamentName != string.Empty)
                 {
                     if (this.utilizatorDataServices.EmailAlreadyExists(userEmail))
                     {
@@ -106,7 +100,7 @@ namespace ServiceLayer.Implementation
 
             foreach (Abonament abonament in abonaments)
             {
-                if(abonament != null)
+                if (abonament != null)
                 {
                     minutesSMSInternet.DurataConvorbireRetea += abonament.NumarMinuteRetea;
                     minutesSMSInternet.DurataConvorbireNationala += abonament.NumarMinuteNationale;

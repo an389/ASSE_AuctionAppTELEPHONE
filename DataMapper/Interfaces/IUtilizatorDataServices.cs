@@ -14,10 +14,8 @@ namespace DataMapper.Interfaces
         Utilizator GetUtilizatorById(int id);
         Utilizator GetUserByEmailAndPassword(string email, string password);    
         bool EmailAlreadyExists(string email);
-        bool UserNameAlreadyExists(string userName);
         bool UpdateUtilizator(Utilizator utilizator);
         bool DeleteUtilizator(Utilizator utilizator);
-        string GeUtilizatortAbonamentsId(string email);
-        void CloseAbonamentForUser(string userEmail, string abonament);
+        bool CloseAbonamentForUser(string userEmail, string abonament);
     }
 }

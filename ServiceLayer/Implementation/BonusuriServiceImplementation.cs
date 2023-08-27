@@ -38,20 +38,14 @@ namespace ServiceLayer.Implementation
                         return this.bonusDataService.AddBonus(bonusuri);
                     }
                     else
-                    {       
+                    {
                         this.logger.Warn("Attempted to add an already existing bonusuri.");
                         return false;
                     }
                 }
                 else
                 {
-                    string res = null;
-                    foreach (var item in results)
-                    {
-                        res += item;
-                    }
-
-                    this.logger.Warn("Attempted to add an invalid bonusuri. " + res);
+                    this.logger.Warn("Attempted to add an invalid bonusuri. ");
                     return false;
                 }
             }

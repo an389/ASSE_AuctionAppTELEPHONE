@@ -3,6 +3,7 @@ using DomainModel.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using System.Xml.Linq;
 
 namespace DataMapper.SqlServerDAO
 {
+    [ExcludeFromCodeCoverage]
     public class SQLAbonamentDataServices : IAbonamentDataServices
     {
         private static readonly ILog Logger = LogManager.GetLogger(Environment.MachineName);

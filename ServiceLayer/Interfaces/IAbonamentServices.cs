@@ -14,5 +14,6 @@ namespace ServiceLayer.Interfaces
         MinutesSMSInternet CalculateAllNumberOfMinutesSMSInternet(List<AbonamentUser> abonaments, List<Bonusuri> bonusuri);
         bool AddAbonamentForUtilizator(string userEmail, string abonamentName);
         List<AbonamentUser> GetAbonamentsByUserId(int id);
+
     }
 }

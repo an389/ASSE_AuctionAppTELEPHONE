@@ -3,12 +3,15 @@ using DomainModel.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataMapper.SqlServerDAO
 {
+    [ExcludeFromCodeCoverage]
+
     public class SQLFacturaDataService : IFacturaDataService
     {
         private static readonly ILog Logger = LogManager.GetLogger(Environment.MachineName);

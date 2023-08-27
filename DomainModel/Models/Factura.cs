@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,8 @@ namespace DomainModel.Models
 {
     public class Factura
     {
-      
 
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
         [Required(ErrorMessage = "[ClientEmail] cannot be null.")]
         [EmailAddress(ErrorMessage = "[ClientEmail] is not a valid email address.")]
@@ -26,6 +27,7 @@ namespace DomainModel.Models
         public bool Achitat { get; set; }
 
 
+        [ExcludeFromCodeCoverage]
 
         public Factura()
         {

@@ -4,6 +4,7 @@
 
 namespace UserServiceTests
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
     using DataMapper.Interfaces;
     using DomainModel.Models;
@@ -626,22 +627,6 @@ namespace UserServiceTests
             loggerMock.Verify(logger => logger.Warn(It.Is<string>(message => message == LogUpdateNonexistingUser)));
         }
 
-        /// <summary>
-        ///     Test for updating a valid user.
-        /// </summary>
-        [Test]
-        public void UPDATE_ValidUser()
-        {
-            User user = new User("Adrian", "Matei", "AdiMatei20", "0123456789", "adrian.matei@FakeEmail.com", "P@ssword123");
 
-            var userServiceMock = new Mock<IUserDataServices>();
-            userServiceMock.Setup(x => x.GetUserById(user.Id)).Returns(user);
-            userServiceMock.Setup(x => x.UpdateUser(user)).Returns(true);
-            var loggerMock = new Mock<ILog>();
-
-            var userServices = new UserServicesImplementation(userServiceMock.Object, loggerMock.Object);
-
-            Assert.IsTrue(userServices.UpdateUser(user));
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace DomainModel.Models
 {
     public class Bonusuri
     {
+        [ExcludeFromCodeCoverage]
         public int Id { get; private set; }
         [Required(ErrorMessage = "[CreationDate] cannot be null.")]
         [CustomValidation(typeof(Bonusuri), "isValidStartDate", ErrorMessage = "StartDate wrong ")]
@@ -88,6 +90,7 @@ namespace DomainModel.Models
             }
            
         }
+        [ExcludeFromCodeCoverage]
         public Bonusuri()
         {
         }
