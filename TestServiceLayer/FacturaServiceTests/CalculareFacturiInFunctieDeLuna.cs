@@ -17,6 +17,31 @@ namespace TestServiceLayer.FacturaServiceTests
     [ExcludeFromCodeCoverage]
     internal class CalculareFacturiInFunctieDeLuna
     {
+
+        [Test]
+        public void CalculareFacturiInFunctieDeLunaValidate()
+        {
+
+            List<Utilizator> utilizators = new List<Utilizator>
+            {
+            };
+
+            var userServiceMock = new Mock<IUtilizatorDataServices>();
+            userServiceMock.Setup(x => x.GetAllUtilizatori()).Returns(utilizators);
+            var loggerMock = new Mock<ILog>();
+
+            var userServices = new UtilizatorServicesImplementation(userServiceMock.Object, loggerMock.Object);
+
+            var expected = utilizators;
+            var actual = userServices.GetAllUsers();
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            Assert.IsEmpty(actual);
+
+        }
+
+      
+
         [Test]
         public void CalculareFacturiInFunctieDeLunaTest()
         {

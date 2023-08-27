@@ -124,13 +124,7 @@ namespace ServiceLayer.Implementation
                     PretTotal = this.PretTotal(tVA, pretAbonamente, procentDepasireValoriAbonament, minutesSMSInternetTotalePrimiteAbonament, minutesSMSInternetConsumatePrinCentralaTelefonica),
                     Achitat = false,
                 });
-               
             }
-
-         /*   foreach(Factura factura in facturi)
-            {
-                Console.WriteLine(factura.PretTotal);
-            }*/
 
             return facturi;
         }
